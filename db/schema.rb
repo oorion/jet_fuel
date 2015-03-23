@@ -11,14 +11,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150323005554) do
+ActiveRecord::Schema.define(version: 20150323215727) do
 
   create_table "urls", force: :cascade do |t|
     t.string   "title"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
     t.string   "original"
     t.string   "shortened"
+    t.integer  "count",      default: 1
   end
 
 end

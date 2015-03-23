@@ -2,17 +2,28 @@ class UrlsController < ApplicationController
   def index
     @host_with_port = request.host_with_port
     @url = Url.new
-    @urls = Url.all
+    if params[:sort] == "popularity"
+      @urls = Url.sort_by_popularity
+    elsif params[:sort] == "date"
+      @urls = Url.sort_by_date
+    else
+      @urls = Url.all
+    end
   end
 
   def create
-    url = Url.new(url_params)
-    if url.save
-      shortened = url.shorten
-      url.update(shortened: shortened)
+    url = Url.find_by(url_params)
+    if url
+      url.increment_count
       redirect_to root_path
     else
-      render :index, notice: "Invalid url"
+      url = Url.new(url_params)
+      if url.save
+        url.update(shortened: url.shorten)
+        redirect_to root_path
+      else
+        render :index, notice: "Invalid url"
+      end
     end
   end
 
