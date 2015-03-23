@@ -1,6 +1,6 @@
-require 'rails_helper'
+require "rails_helper"
 
-RSpec.describe "AnonymousUsers", :type => :feature do
+RSpec.describe "AnonymousUsers", type: :feature do
   describe "GET /anonymous_users" do
     it "can return a shortened url" do
       visit root_path
