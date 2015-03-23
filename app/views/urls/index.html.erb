@@ -1,0 +1,15 @@
+<div class="url-shortener">
+  <%= form_for @url do |f| %>
+    <%= f.text_field :original %>
+    <%= f.submit "Shorten" %>
+  <% end %>
+</div>
+
+<div class="url-stats">
+  <ul>
+  <% @urls.each do |url| %>
+    <li>
+      <%= url.original %> | <%= url.shortened %>
+    </li>
+  <% end %>
+</div>
