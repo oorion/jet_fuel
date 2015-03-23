@@ -1,5 +1,6 @@
 class UrlsController < ApplicationController
   def index
+    @host_with_port = request.host_with_port
     @url = Url.new
     @urls = Url.all
   end
@@ -7,7 +8,7 @@ class UrlsController < ApplicationController
   def create
     url = Url.new(url_params)
     if url.save
-      shortened = url.shorten(request.host_with_port)
+      shortened = url.shorten
       url.update(shortened: shortened)
       redirect_to root_path
     else

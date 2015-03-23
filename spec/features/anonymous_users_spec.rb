@@ -11,7 +11,7 @@ RSpec.describe "AnonymousUsers", type: :feature do
       click_link_or_button("Shorten")
 
       within(".url-stats") do
-        expect(page).to have_content("www.google.com | www.example.com/191347")
+        expect(page).to have_content("www.google.com | www.example.com/s/191347")
       end
     end
   end
