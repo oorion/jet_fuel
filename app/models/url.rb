@@ -1,5 +1,6 @@
 class Url < ActiveRecord::Base
   def shorten(host_with_port)
-    host_with_port + "/abc"
+    digest = Digest::SHA256.hexdigest(original)[0..5]
+    host_with_port + "/" + digest
   end
 end
