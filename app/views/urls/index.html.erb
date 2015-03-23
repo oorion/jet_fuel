@@ -9,7 +9,7 @@
   <ul>
   <% @urls.each do |url| %>
     <li>
-      <%= url.original %> | <%= link_to url.shortened_url(@host_with_port), short_url_path(shortened: url.shortened) %>
+      <%= url.original %> | <%= link_to url.shortened_url(@host_with_port), short_url_path(shortened: url.shortened) %> | <%= url.count %>
     </li>
   <% end %>
 </div>
