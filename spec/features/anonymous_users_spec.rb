@@ -25,6 +25,7 @@ RSpec.describe "AnonymousUsers", type: :feature do
       shorten_url("www.google.com")
       shorten_url("www.bitly.com")
       shorten_url("www.bitly.com")
+      click_link_or_button "Sort By Popularity"
 
       within(".url-stats") do
         within first("li") do
@@ -32,6 +33,25 @@ RSpec.describe "AnonymousUsers", type: :feature do
         end
         within all("li").last do
           expect(page).to have_content("www.google.com | www.example.com/s/191347 | 1")
+        end
+      end
+    end
+
+    it "can display urls by how recently they were added" do
+      visit root_path
+
+      shorten_url("www.google.com")
+      shorten_url("www.bitly.com")
+      shorten_url("www.bitly.com")
+      shorten_url("www.google.com")
+      click_link_or_button "Sort By Date"
+
+      within(".url-stats") do
+        within first("li") do
+          expect(page).to have_content("www.google.com | www.example.com/s/191347 | 2")
+        end
+        within all("li").last do
+          expect(page).to have_content("www.bitly.com | www.example.com/s/cf93ca | 2")
         end
       end
     end

@@ -38,4 +38,17 @@ RSpec.describe Url, :type => :model do
 
     expect(url.count).to eq(2)
   end
+
+  it "can shorten urls that happen to have the same hash" do
+    url1 = Url.create(original: "www.google.com")
+    url2 = Url.create(original: "www.blah.com")
+    Digest::SHA256.stub(:hexdigest) { "191347" }
+    Random.stub(:rand) { 0 }
+
+    url1.update(shortened: url1.shorten)
+    url2.update(shortened: url2.shorten)
+
+    expect(url1.shortened).to eq("191347")
+    expect(url2.shortened).to eq("1913470")
+  end
 end
