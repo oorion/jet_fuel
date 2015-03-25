@@ -5,6 +5,11 @@
   <% end %>
 </div>
 
+<div class="search">
+  <%= text_field_tag :search %>
+  <%= submit_tag "Search", id: "search-button" %>
+</div>
+
 <div class="url-stats">
   <%= link_to "Sort By Popularity", root_path(sort: "popularity") %>
   <%= link_to "Sort By Date", root_path(sort: "date") %>
