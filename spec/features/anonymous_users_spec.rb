@@ -1,7 +1,6 @@
 require "rails_helper"
 
 RSpec.describe "AnonymousUsers", type: :feature do
-
   def shorten_url(url)
     within(".url-shortener") do
       fill_in "url[original]", with: url
@@ -70,7 +69,7 @@ RSpec.describe "AnonymousUsers", type: :feature do
 
       expect(current_path).to eq(root_path)
       expect(page).to have_content("www.google.com")
-      #expect(page).to_not have_content("bitly")
+      # expect(page).to_not have_content("bitly")
     end
   end
 end
