@@ -11,7 +11,7 @@ class Url < ActiveRecord::Base
   end
 
   def shortened_url(host_with_port)
-    host_with_port + "/s/" + shortened
+    host_with_port + "/" + shortened
   end
 
   def increment_count

@@ -15,7 +15,7 @@ RSpec.describe "AnonymousUsers", type: :feature do
       shorten_url("www.google.com")
 
       within(".url-stats") do
-        expect(page).to have_content("www.google.com | www.example.com/s/191347")
+        expect(page).to have_content("www.google.com | www.example.com/191347")
       end
     end
 
@@ -29,10 +29,10 @@ RSpec.describe "AnonymousUsers", type: :feature do
 
       within(".url-stats") do
         within first("li") do
-          expect(page).to have_content("www.bitly.com | www.example.com/s/cf93ca | 2")
+          expect(page).to have_content("www.bitly.com | www.example.com/cf93ca | 2")
         end
         within all("li").last do
-          expect(page).to have_content("www.google.com | www.example.com/s/191347 | 1")
+          expect(page).to have_content("www.google.com | www.example.com/191347 | 1")
         end
       end
     end
@@ -48,12 +48,28 @@ RSpec.describe "AnonymousUsers", type: :feature do
 
       within(".url-stats") do
         within first("li") do
-          expect(page).to have_content("www.google.com | www.example.com/s/191347 | 2")
+          expect(page).to have_content("www.google.com | www.example.com/191347 | 2")
         end
         within all("li").last do
-          expect(page).to have_content("www.bitly.com | www.example.com/s/cf93ca | 2")
+          expect(page).to have_content("www.bitly.com | www.example.com/cf93ca | 2")
         end
       end
+    end
+
+    it "allows a user to search by url" do
+      Capybara.ignore_hidden_elements = true
+      visit root_path
+      shorten_url("www.google.com")
+      shorten_url("www.bitly.com")
+
+      within(".search") do
+        fill_in "search", with: "google"
+      end
+      click_link_or_button("Search")
+
+      expect(current_path).to eq(root_path)
+      expect(page).to have_content("www.google.com")
+      # expect(page).to_not have_content("bitly")
     end
   end
 end
