@@ -19,6 +19,7 @@ class UrlsController < ApplicationController
     else
       url = Url.new(url_params)
       if url.save
+        TitleWorker.perform_async(url.original)
         url.update(shortened: url.shorten)
         redirect_to root_path
       else

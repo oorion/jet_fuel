@@ -2,6 +2,8 @@ class Url < ActiveRecord::Base
   validates :count, presence: true
   validates :original, uniqueness: true
 
+  #before_save :check_if_http_present
+
   def shorten
     digest = Digest::SHA256.hexdigest(original)[0..5]
     while Url.find_by(shortened: digest)
@@ -26,4 +28,10 @@ class Url < ActiveRecord::Base
   def self.sort_by_date
     all.sort_by(&:updated_at).reverse
   end
+
+  #def check_if_http_present
+  #  unless original.match(/\Ahttp/)
+  #    self.update(original: "http://" + original)
+  #  end
+  #end
 end
