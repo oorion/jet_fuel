@@ -15,7 +15,7 @@ RSpec.describe "AnonymousUsers", type: :feature do
       shorten_url("www.google.com")
 
       within(".url-stats") do
-        expect(page).to have_content("www.google.com | www.example.com/191347")
+        expect(page).to have_content("www.google.com | www.example.com/253d14")
       end
     end
 
@@ -29,10 +29,10 @@ RSpec.describe "AnonymousUsers", type: :feature do
 
       within(".url-stats") do
         within first("li") do
-          expect(page).to have_content("www.bitly.com | www.example.com/cf93ca | 2")
+          expect(page).to have_content("www.bitly.com | www.example.com/625f4b | 2")
         end
         within all("li").last do
-          expect(page).to have_content("www.google.com | www.example.com/191347 | 1")
+          expect(page).to have_content("www.google.com | www.example.com/253d14 | 1")
         end
       end
     end
@@ -48,10 +48,10 @@ RSpec.describe "AnonymousUsers", type: :feature do
 
       within(".url-stats") do
         within first("li") do
-          expect(page).to have_content("www.google.com | www.example.com/191347 | 2")
+          expect(page).to have_content("www.google.com | www.example.com/253d14 | 2")
         end
         within all("li").last do
-          expect(page).to have_content("www.bitly.com | www.example.com/cf93ca | 2")
+          expect(page).to have_content("www.bitly.com | www.example.com/625f4b | 2")
         end
       end
     end

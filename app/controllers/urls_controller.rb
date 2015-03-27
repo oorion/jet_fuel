@@ -23,7 +23,7 @@ class UrlsController < ApplicationController
         url.update(shortened: url.shorten)
         redirect_to root_path
       else
-        render :index, notice: "Invalid url"
+        redirect_to root_path, notice: "Invalid url"
       end
     end
   end
@@ -31,6 +31,16 @@ class UrlsController < ApplicationController
   private
 
   def url_params
-    params.require(:url).permit(:original)
+    original_params = params.require(:url).permit(:original)
+    update_params(original_params)
+  end
+
+  def update_params(original_params)
+    if original_params[:original].match(/\Ahttp/)
+      original_params
+    else
+      original_params[:original] = "http://" + original_params[:original]
+      original_params
+    end
   end
 end
