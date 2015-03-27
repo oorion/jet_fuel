@@ -57,7 +57,6 @@ RSpec.describe "AnonymousUsers", type: :feature do
     end
 
     it "allows a user to search by url" do
-      #Capybara.ignore_hidden_elements = true
       visit root_path
       shorten_url("www.google.com")
       shorten_url("www.bitly.com")
@@ -69,11 +68,11 @@ RSpec.describe "AnonymousUsers", type: :feature do
 
       expect(current_path).to eq(root_path)
       expect(page).to have_content("www.google.com")
-      #expect(page).to_not have_content("bitly")
+      # expect(page).to_not have_content("bitly")
     end
 
     xit "can fetch the title of a url using a background worker" do
-      #not sure how to get this to work
+      # not sure how to get this to work
       visit root_path
       original_url = "http://www.google.com"
       shorten_url(original_url)
