@@ -15,7 +15,7 @@ RSpec.describe "AnonymousUsers", type: :feature do
       shorten_url("www.google.com")
 
       within(".url-stats") do
-        expect(page).to have_content("www.google.com | www.example.com/191347")
+        expect(page).to have_content("www.google.com | www.example.com/253d14")
       end
     end
 
@@ -29,10 +29,10 @@ RSpec.describe "AnonymousUsers", type: :feature do
 
       within(".url-stats") do
         within first("li") do
-          expect(page).to have_content("www.bitly.com | www.example.com/cf93ca | 2")
+          expect(page).to have_content("www.bitly.com | www.example.com/625f4b | 2")
         end
         within all("li").last do
-          expect(page).to have_content("www.google.com | www.example.com/191347 | 1")
+          expect(page).to have_content("www.google.com | www.example.com/253d14 | 1")
         end
       end
     end
@@ -48,16 +48,15 @@ RSpec.describe "AnonymousUsers", type: :feature do
 
       within(".url-stats") do
         within first("li") do
-          expect(page).to have_content("www.google.com | www.example.com/191347 | 2")
+          expect(page).to have_content("www.google.com | www.example.com/253d14 | 2")
         end
         within all("li").last do
-          expect(page).to have_content("www.bitly.com | www.example.com/cf93ca | 2")
+          expect(page).to have_content("www.bitly.com | www.example.com/625f4b | 2")
         end
       end
     end
 
     it "allows a user to search by url" do
-      Capybara.ignore_hidden_elements = true
       visit root_path
       shorten_url("www.google.com")
       shorten_url("www.bitly.com")
@@ -70,6 +69,18 @@ RSpec.describe "AnonymousUsers", type: :feature do
       expect(current_path).to eq(root_path)
       expect(page).to have_content("www.google.com")
       # expect(page).to_not have_content("bitly")
+    end
+
+    xit "can fetch the title of a url using a background worker" do
+      # not sure how to get this to work
+      visit root_path
+      original_url = "http://www.google.com"
+      shorten_url(original_url)
+
+      url = Url.find_by(original: original_url)
+      Kernel.sleep(10.0)
+
+      expect(url.title).to eq("Google")
     end
   end
 end
