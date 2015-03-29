@@ -1,5 +1,6 @@
 <div class="url-shortener">
-  <%= form_for @url do |f| %>
+  <% url = @url_presenter.url %>
+  <%= form_for url do |f| %>
     <%= f.text_field :original %>
     <%= f.submit "Shorten" %>
   <% end %>
@@ -14,9 +15,9 @@
   <%= link_to "Sort By Popularity", root_path(sort: "popularity") %>
   <%= link_to "Sort By Date", root_path(sort: "date") %>
   <ul>
-  <% @urls.each do |url| %>
+  <% @url_presenter.urls.each do |url| %>
     <li>
-      <%= url.original %> | <%= link_to url.shortened_url(@host_with_port), short_url_path(shortened: url.shortened) %> | <%= url.count %>
+      <%= url.original %> | <%= link_to url.shortened_url(@url_presenter.host_with_port), short_url_path(shortened: url.shortened) %> | <%= url.count %>
     </li>
   <% end %>
 </div>
