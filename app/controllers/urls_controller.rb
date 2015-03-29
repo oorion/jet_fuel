@@ -1,14 +1,6 @@
 class UrlsController < ApplicationController
   def index
-    @host_with_port = request.host_with_port
-    @url = Url.new
-    if params[:sort] == "popularity"
-      @urls = Url.sort_by_popularity
-    elsif params[:sort] == "date"
-      @urls = Url.sort_by_date
-    else
-      @urls = Url.all
-    end
+    @url_presenter = UrlPresenter.new(request.host_with_port, params[:sort])
   end
 
   def create

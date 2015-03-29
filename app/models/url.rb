@@ -3,11 +3,6 @@ class Url < ActiveRecord::Base
   validates :original, uniqueness: true
 
   def shorten(host)
-    #digest = Digest::SHA256.hexdigest(original)[0..5]
-    #while Url.find_by(shortened: digest)
-      #digest += Random.rand(0..9).to_s
-    #end
-    #digest
     jf = ShortenUrl::JetFuel.new(host)
     digest = jf.shorten(original)
     while Url.find_by(shortened: digest)
