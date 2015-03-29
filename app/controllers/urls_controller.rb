@@ -20,7 +20,7 @@ class UrlsController < ApplicationController
       url = Url.new(url_params)
       if url.save
         TitleWorker.perform_async(url.original)
-        url.update(shortened: url.shorten)
+        url.update(shortened: url.shorten(request.host_with_port))
         redirect_to root_path
       else
         redirect_to root_path, notice: "Invalid url"

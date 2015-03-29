@@ -4,7 +4,7 @@ RSpec.describe Url, :type => :model do
   it "can shorten a url" do
     url = Url.create(original: "http://www.google.com")
 
-    shortened = url.shorten
+    shortened = url.shorten("www.example.com")
 
     expect(shortened).to eq("253d14")
   end
@@ -12,7 +12,7 @@ RSpec.describe Url, :type => :model do
   it "can shorten another url" do
     url = Url.create(original: "http://www.google.com/abcdefg")
 
-    shortened = url.shorten
+    shortened = url.shorten("www.example.com")
 
     expect(shortened).to eq("1153d1")
   end
@@ -45,8 +45,8 @@ RSpec.describe Url, :type => :model do
     Digest::SHA256.stub(:hexdigest) { "253d14" }
     Random.stub(:rand) { 0 }
 
-    url1.update(shortened: url1.shorten)
-    url2.update(shortened: url2.shorten)
+    url1.update(shortened: url1.shorten("www.example.com"))
+    url2.update(shortened: url2.shorten("www.example.com"))
 
     expect(url1.shortened).to eq("253d14")
     expect(url2.shortened).to eq("253d140")

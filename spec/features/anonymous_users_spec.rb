@@ -70,17 +70,5 @@ RSpec.describe "AnonymousUsers", type: :feature do
       expect(page).to have_content("www.google.com")
       # expect(page).to_not have_content("bitly")
     end
-
-    xit "can fetch the title of a url using a background worker" do
-      # not sure how to get this to work
-      visit root_path
-      original_url = "http://www.google.com"
-      shorten_url(original_url)
-
-      url = Url.find_by(original: original_url)
-      Kernel.sleep(10.0)
-
-      expect(url.title).to eq("Google")
-    end
   end
 end
